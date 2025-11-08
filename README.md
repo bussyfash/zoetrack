@@ -36,6 +36,12 @@ ZoeTrack removes the friction from spiritual discipline. It automatically detect
 
 ---
 
+## Wireframes
+
+View some design wireframes (low fidelity) on Google Drive:
+- [Dashboard Wireframe](https://drive.google.com/file/d/1ve5h7T2ZKpHIy0-_3ZaQ2v4o-fTGSaQJ/view?usp=drive_link)
+- [Initial setup Wireframe](https://drive.google.com/file/d/16Me3qWGjNvg1IUxkXzcMG9tEeHHrdXL-/view?usp=drive_link)
+
 ## Key Features
 
 ### 1. Natural Language Goal Setting
