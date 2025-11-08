@@ -2,8 +2,6 @@
 
 > Your personal spiritual growth companion that automatically tracks your prayer life and helps you stay consistent in your walk with God.
 
-**[ADD HERO IMAGE/SCREENSHOT HERE - Show the main dashboard with color-coded prayer tracking]**
-
 ---
 
 ## What It Does
@@ -80,3 +78,33 @@ When you write notes containing action plans (like "I need to fast every Wednesd
 Everything works without internet: prayer detection, note-taking, activity tracking. It auto-syncs when you're back online, just like Apple Notes.
 
 ---
+
+## Technologies Used
+
+- **Frontend**: React Native 
+- **Backend**: Node.js with Express
+- **Database**: MongoDB 
+- **AI/ML**: TensorFlow Lite 
+- **Sync**: Custom conflict resolution 
+
+---
+
+## Getting Started
+
+ZoeTrack is currently in development and will launch on iOS and Android simultaneously.
+
+**Target Launch**: [coming soon]
+
+---
+
+## Our Heart Behind This
+
+*"In as much as one is active in church and does congregational prayer, it's time alone spent with God that makes all the difference and I want that to be better for myself and for other believers in the world."*
+
+This app was born from personal struggle with missing prayer times and wanting a better way to track spiritual growth without it feeling like another burden.
+
+---
+
+Built with ❤️ by [Busayo F]
+
+*"But grow in the grace and knowledge of our Lord and Savior Jesus Christ." - 2 Peter 3:18*
