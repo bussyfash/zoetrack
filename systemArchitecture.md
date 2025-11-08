@@ -309,8 +309,9 @@ Online Mode:
 7. Backend returns updated data → App
 8. App updates SQLite with latest
 9. Sync queue cleared
-
+```
 ---
+
 
 ## Technical Feasibility
 
@@ -365,5 +366,122 @@ Prayer detection runs entirely locally:
 | **Battery drain from detection** | Run detection only during likely prayer times (morning/evening); use low-power sensors | 
 | **NLP parsing accuracy** | Start with common patterns; improve with user feedback; allow manual activity creation fallback | 
 | **Cross-platform consistency** | React Native renders native components; extensive testing on both platforms |
+
+---
+## Offline-First Architecture
+
+### Why Offline-First?
+
+**Problem**: Users pray in locations without internet (church, quiet rooms, commutes)
+
+**Solution**: All core features work without network:
+- Prayer detection (local ML)
+- Activity tracking (SQLite)
+- Note-taking (SQLite)
+- Reminder notifications (local scheduling)
+
+Only sync requires internet, and it happens automatically in background.
+
+### Implementation Pattern
+```javascript
+// Pseudo-code for offline-first pattern
+
+async function saveActivity(activity) {
+  // 1. Always save locally first
+  await SQLite.insert('activities', activity);
+  
+  // 2. Add to sync queue
+  await SQLite.insert('sync_queue', {
+    action: 'CREATE',
+    table: 'activities',
+    data: activity,
+    timestamp: Date.now()
+  });
+  
+  // 3. Attempt sync if online (non-blocking)
+  if (isOnline()) {
+    syncInBackground(); // Runs separately, doesn't block UI
+  }
+  
+  // User sees saved activity immediately, sync happens later
+}
+```
+
+---
+
+## Security & Privacy
+
+### 1. Data Protection
+
+**Passwords:**
+- Never stored in plain text
+- Hashed with bcrypt (12 salt rounds)
+- Salted before hashing (unique per user)
+
+**Prayer Audio:**
+- Never recorded or uploaded
+- ML model processes in real-time, no storage
+- Only duration and timestamp saved
+
+**Notes:**
+- Encrypted in transit (HTTPS/TLS)
+- Stored securely in MongoDB (access-controlled)
+- Local SQLite encrypted with device encryption
+
+
+---
+
+### 2. Authentication & Authorization
+
+**JWT Tokens:**
+- Signed with secret key (256-bit)
+- 7-day expiration (re-login required)
+- Stored in secure mobile storage (Keychain/Keystore)
+
+**API Security:**
+- All endpoints require valid JWT
+- Rate limiting (100 requests/minute per user)
+- Input validation on all data
+
+---
+
+### 3. GDPR/Privacy Compliance
+
+- User data export available (JSON format)
+- Account deletion permanently removes all data
+- No third-party analytics (privacy-first)
+- Clear privacy policy (spiritual data is sacred)
+
+---
+
+## Scalability
+
+### Current MVP Capacity
+
+**Target**: 1,000-10,000 users
+**Expected Load**:
+- 10,000 users × 3 prayers/day = 30,000 prayer logs/day
+- 10,000 users × 1 sync/hour = 240,000 syncs/day
+- Note creation: ~50,000/day
+
+**Why it works**: MongoDB Atlas free tier handles 512MB data, Railway free tier handles 500k requests/month. We're well within limits.
+
+---
+
+### Growth Strategy (10K → 100K users)
+
+**Database:**
+- Upgrade MongoDB Atlas tier 
+- Add database indexes on userId, date fields
+- Implement read replicas for faster queries
+
+**Backend:**
+- Scale Railway dynos (horizontal scaling)
+- Add Redis caching for frequent queries
+- Implement CDN for static assets
+
+**Mobile App:**
+- No changes needed (offline-first handles it)
+- Push notifications via Firebase (handles billions)
 
 ---
