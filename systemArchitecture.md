@@ -18,7 +18,7 @@
 ZoeTrack is architected as a **mobile-first, offline-capable** application built with React Native for cross-platform support (iOS & Android). The system prioritizes local-first operation with eventual consistency sync, ensuring users can track their spiritual growth regardless of network connectivity.
 
 ### Architecture Diagram
-![System Architecture](./images/architecture.png.png)
+![System Architecture](images/architecture.png)
 
 ```
 ┌─────────────────────────────────────────────────────┐
